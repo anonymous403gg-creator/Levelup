@@ -1,0 +1,738 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LEVELUP — Study Dashboard</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f2f5fc;
+  color: #17243b;
+}
+
+header {
+  background: white;
+  padding: 20px;
+  border-bottom: 1px solid #e1e7f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  color: #2864ed;
+}
+
+.logo span {
+  color: #17243b;
+}
+
+header small {
+  color: #8190a8;
+  font-size: 11px;
+}
+
+main {
+  max-width: 1000px;
+  margin: auto;
+  padding: 22px 15px 50px;
+}
+
+.welcome {
+  margin-bottom: 20px;
+}
+
+.welcome h1 {
+  font-size: 27px;
+  margin-bottom: 7px;
+}
+
+.welcome p {
+  color: #7d8ba2;
+  font-size: 13px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 15px;
+}
+
+.card {
+  background: white;
+  border: 1px solid #e2e8f2;
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 15px;
+}
+
+.card h2 {
+  font-size: 17px;
+  margin: 0 0 7px;
+}
+
+.description {
+  font-size: 12px;
+  color: #8491a7;
+  margin-bottom: 18px;
+}
+
+label {
+  display: block;
+  font-size: 12px;
+  font-weight: bold;
+  margin: 13px 0 7px;
+}
+
+input, select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #dce3ee;
+  border-radius: 8px;
+  background: white;
+  color: #17243b;
+  font-size: 14px;
+}
+
+button {
+  border: none;
+  padding: 11px 15px;
+  border-radius: 8px;
+  background: #2864ed;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+button:active {
+  transform: scale(.98);
+}
+
+.secondary {
+  background: #edf2ff;
+  color: #2864ed;
+}
+
+.button-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 15px;
+  flex-wrap: wrap;
+}
+
+.button-row button {
+  flex: 1;
+}
+
+.info-box {
+  background: #f0f5ff;
+  padding: 14px;
+  border-radius: 10px;
+  margin-top: 15px;
+}
+
+.info-title {
+  font-size: 11px;
+  color: #71819c;
+}
+
+.info-value {
+  font-size: 24px;
+  font-weight: 900;
+  margin-top: 5px;
+  color: #2864ed;
+}
+
+.progress {
+  height: 10px;
+  background: #e9eef7;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 12px 0;
+}
+
+.progress div {
+  height: 100%;
+  background: #2864ed;
+  width: 0%;
+  border-radius: 20px;
+  transition: width .3s;
+}
+
+.big-number {
+  font-size: 46px;
+  font-weight: 900;
+  text-align: center;
+  letter-spacing: -2px;
+  margin: 20px 0 5px;
+}
+
+.timer-status {
+  text-align: center;
+  color: #8190a8;
+  font-size: 12px;
+}
+
+.timer-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.timer-buttons button {
+  min-width: 85px;
+}
+
+.rank-name {
+  font-size: 26px;
+  font-weight: 900;
+  color: #2864ed;
+  margin: 12px 0;
+}
+
+.rank-score {
+  color: #8290a5;
+  font-size: 12px;
+}
+
+.rank-list {
+  margin-top: 17px;
+  border-top: 1px solid #e7ebf2;
+  padding-top: 12px;
+}
+
+.rank-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 9px 0;
+  font-size: 12px;
+  border-bottom: 1px solid #f0f2f6;
+}
+
+.rank-item.current {
+  color: #2864ed;
+  font-weight: 900;
+}
+
+.message {
+  font-size: 12px;
+  color: #71819c;
+  margin-top: 12px;
+  line-height: 1.5;
+}
+
+footer {
+  text-align: center;
+  color: #9aa6b8;
+  font-size: 10px;
+  padding: 20px;
+}
+
+@media(max-width:650px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  header {
+    padding: 17px;
+  }
+
+  main {
+    padding: 18px 12px 35px;
+  }
+
+  .card {
+    padding: 17px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div>
+    <div class="logo">LEVEL<span>UP</span></div>
+    <small>YOUR ACADEMIC PROGRESSION</small>
+  </div>
+  <div id="headerRank" style="font-size:12px;color:#2864ed;font-weight:bold">
+    BEGINNER
+  </div>
+</header>
+
+<main>
+
+  <div class="welcome">
+    <h1>Study Dashboard</h1>
+    <p>Your exams are the deadline. Your progress is the mission.</p>
+  </div>
+
+  <div class="grid">
+
+    <!-- BOARD AND DEADLINE -->
+    <div class="card">
+      <h2>Academic Profile</h2>
+      <div class="description">Set your board and examination deadline.</div>
+
+      <label for="board">Your education board</label>
+      <select id="board">
+        <option value="CBSE">CBSE</option>
+        <option value="ICSE">ICSE</option>
+        <option value="WBBSE">WBBSE</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <label for="examDate">Examination date</label>
+      <input type="date" id="examDate">
+
+      <button style="width:100%;margin-top:15px" id="saveProfile">
+        Save details
+      </button>
+
+      <div class="info-box">
+        <div class="info-title">BOARD SELECTED</div>
+        <div class="info-value" id="boardDisplay">CBSE</div>
+      </div>
+
+      <div class="info-box">
+        <div class="info-title">TIME UNTIL EXAM</div>
+        <div class="info-value" id="daysLeft">Not set</div>
+        <div class="info-title" id="deadlineMessage">Set your exam date above.</div>
+      </div>
+    </div>
+
+    <!-- SYLLABUS TRACKER -->
+    <div class="card">
+      <h2>Syllabus Progress</h2>
+      <div class="description">Track how much of your syllabus is complete.</div>
+
+      <label for="totalChapters">Total chapters</label>
+      <input type="number" id="totalChapters" min="1" placeholder="e.g. 40">
+
+      <label for="completedChapters">Completed chapters</label>
+      <input type="number" id="completedChapters" min="0" placeholder="e.g. 12">
+
+      <button style="width:100%;margin-top:15px" id="saveSyllabus">
+        Update syllabus
+      </button>
+
+      <div class="info-box">
+        <div class="info-title">SYLLABUS COMPLETED</div>
+        <div class="info-value" id="syllabusPercent">0%</div>
+        <div class="progress">
+          <div id="syllabusBar"></div>
+        </div>
+        <div class="info-title" id="chapterCount">0 / 0 chapters</div>
+      </div>
+    </div>
+
+    <!-- STUDY TIMER -->
+    <div class="card">
+      <h2>Study Session</h2>
+      <div class="description">A simple 25-minute focus session.</div>
+
+      <div class="big-number" id="timer">25:00</div>
+      <div class="timer-status" id="timerStatus">Ready to study?</div>
+
+      <div class="timer-buttons">
+        <button id="startTimer">Start</button>
+        <button class="secondary" id="resetTimer">Reset</button>
+      </div>
+
+      <div class="info-box">
+        <div class="info-title">COMPLETED STUDY SESSIONS</div>
+        <div class="info-value" id="sessions">0</div>
+      </div>
+
+      <div class="info-box">
+        <div class="info-title">TOTAL STUDY TIME</div>
+        <div class="info-value" id="studyTime">0 min</div>
+      </div>
+    </div>
+
+    <!-- PERFORMANCE AND RANK -->
+    <div class="card">
+      <h2>Your Rank</h2>
+      <div class="description">Your rank reflects your academic progress.</div>
+
+      <div class="info-title">CURRENT RANK</div>
+      <div class="rank-name" id="rankName">Beginner</div>
+      <div class="rank-score" id="rankScore">Progress score: 0 / 100</div>
+
+      <div class="progress">
+        <div id="rankBar"></div>
+      </div>
+
+      <div class="message" id="rankMessage">
+        Start completing your syllabus to progress through the ranks.
+      </div>
+
+      <div class="rank-list">
+        <div class="rank-item"><span>Beginner</span><span>0+</span></div>
+        <div class="rank-item"><span>Starter</span><span>20+</span></div>
+        <div class="rank-item"><span>Learner</span><span>40+</span></div>
+        <div class="rank-item"><span>Scholar</span><span>60+</span></div>
+        <div class="rank-item"><span>Advanced</span><span>75+</span></div>
+        <div class="rank-item"><span>Elite</span><span>90+</span></div>
+      </div>
+
+      <label for="testScore">Enter a test score (%)</label>
+      <input type="number" id="testScore" min="0" max="100" placeholder="e.g. 78">
+
+      <button style="width:100%;margin-top:12px" id="addScore">
+        Add test score
+      </button>
+
+      <div class="message" id="averageScore">
+        No test scores recorded yet.
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer>LEVELUP · EVERY CHAPTER TAKES YOU CLOSER.</footer>
+
+<script>
+"use strict";
+
+/* ---------- DATA ---------- */
+
+const STORAGE_KEY = "levelup_simple_data";
+
+const defaultData = {
+  board: "CBSE",
+  examDate: "",
+  totalChapters: 0,
+  completedChapters: 0,
+  scores: [],
+  sessions: 0,
+  studyMinutes: 0
+};
+
+let data = {...defaultData};
+
+try {
+  const saved = localStorage.getItem(STORAGE_KEY);
+
+  if (saved) {
+    data = {...defaultData, ...JSON.parse(saved)};
+  }
+} catch (error) {
+  console.log("Could not load saved data.");
+}
+
+function saveData() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  } catch (error) {
+    alert("Could not save your data in this browser.");
+  }
+}
+
+/* ---------- BASIC FUNCTIONS ---------- */
+
+function $(id) {
+  return document.getElementById(id);
+}
+
+function getSyllabusPercentage() {
+  if (data.totalChapters <= 0) return 0;
+
+  return Math.round(
+    (data.completedChapters / data.totalChapters) * 100
+  );
+}
+
+function getAverageScore() {
+  if (data.scores.length === 0) return null;
+
+  const total = data.scores.reduce((sum, score) => sum + score, 0);
+
+  return Math.round(total / data.scores.length);
+}
+
+/* ---------- RANK SYSTEM ---------- */
+
+function getRank(score) {
+  if (score >= 90) return "Elite";
+  if (score >= 75) return "Advanced";
+  if (score >= 60) return "Scholar";
+  if (score >= 40) return "Learner";
+  if (score >= 20) return "Starter";
+
+  return "Beginner";
+}
+
+function updateRank() {
+  const syllabus = getSyllabusPercentage();
+  const average = getAverageScore();
+
+  let score;
+
+  if (average === null) {
+    score = syllabus;
+  } else {
+    score = Math.round(syllabus * 0.7 + average * 0.3);
+  }
+
+  const rank = getRank(score);
+
+  $("rankName").textContent = rank;
+  $("headerRank").textContent = rank.toUpperCase();
+  $("rankScore").textContent = "Progress score: " + score + " / 100";
+  $("rankBar").style.width = score + "%";
+
+  if (rank === "Elite") {
+    $("rankMessage").textContent =
+      "Elite level achieved. Keep maintaining your progress.";
+  } else {
+    $("rankMessage").textContent =
+      "Your next rank is within reach. Keep progressing through your syllabus and improving your test scores.";
+  }
+
+  document.querySelectorAll(".rank-item").forEach(item => {
+    item.classList.toggle(
+      "current",
+      item.children[0].textContent === rank
+    );
+  });
+}
+
+/* ---------- PROFILE ---------- */
+
+function renderProfile() {
+  $("board").value = data.board;
+  $("examDate").value = data.examDate;
+  $("boardDisplay").textContent = data.board;
+
+  updateDeadline();
+}
+
+$("saveProfile").addEventListener("click", function() {
+  data.board = $("board").value;
+  data.examDate = $("examDate").value;
+
+  saveData();
+  renderProfile();
+
+  alert("Academic profile saved.");
+});
+
+function updateDeadline() {
+  if (!data.examDate) {
+    $("daysLeft").textContent = "Not set";
+    $("deadlineMessage").textContent = "Set your exam date above.";
+    return;
+  }
+
+  const now = new Date();
+  now.setHours(0, 0, 0, 0);
+
+  const exam = new Date(data.examDate + "T00:00:00");
+  const difference = Math.ceil((exam - now) / 86400000);
+
+  if (difference > 0) {
+    $("daysLeft").textContent = difference + " days";
+    $("deadlineMessage").textContent = "Time remaining until your exam.";
+  } else if (difference === 0) {
+    $("daysLeft").textContent = "Today";
+    $("deadlineMessage").textContent = "Your exam is today.";
+  } else {
+    $("daysLeft").textContent = Math.abs(difference) + " days ago";
+    $("deadlineMessage").textContent = "This exam date has passed.";
+  }
+}
+
+/* ---------- SYLLABUS ---------- */
+
+function renderSyllabus() {
+  const percent = getSyllabusPercentage();
+
+  $("totalChapters").value = data.totalChapters || "";
+  $("completedChapters").value = data.completedChapters || "";
+
+  $("syllabusPercent").textContent = percent + "%";
+  $("syllabusBar").style.width = percent + "%";
+
+  $("chapterCount").textContent =
+    data.completedChapters + " / " + data.totalChapters + " chapters";
+
+  updateRank();
+}
+
+$("saveSyllabus").addEventListener("click", function() {
+  const total = Number($("totalChapters").value);
+  const completed = Number($("completedChapters").value);
+
+  if (!Number.isInteger(total) || total < 1) {
+    alert("Enter a total chapter count greater than zero.");
+    return;
+  }
+
+  if (!Number.isInteger(completed) || completed < 0 || completed > total) {
+    alert("Completed chapters must be between zero and the total chapters.");
+    return;
+  }
+
+  data.totalChapters = total;
+  data.completedChapters = completed;
+
+  saveData();
+  renderSyllabus();
+
+  alert("Syllabus progress updated.");
+});
+
+/* ---------- TEST PERFORMANCE ---------- */
+
+function renderScores() {
+  const average = getAverageScore();
+
+  if (average === null) {
+    $("averageScore").textContent = "No test scores recorded yet.";
+  } else {
+    $("averageScore").textContent =
+      "Average test performance: " + average + "% across " +
+      data.scores.length + " test(s).";
+  }
+
+  updateRank();
+}
+
+$("addScore").addEventListener("click", function() {
+  const score = Number($("testScore").value);
+
+  if (
+    $("testScore").value.trim() === "" ||
+    !Number.isFinite(score) ||
+    score < 0 ||
+    score > 100
+  ) {
+    alert("Enter a test score between 0 and 100.");
+    return;
+  }
+
+  data.scores.push(score);
+
+  saveData();
+
+  $("testScore").value = "";
+
+  renderScores();
+
+  alert("Test score added.");
+});
+
+/* ---------- STUDY TIMER ---------- */
+
+const SESSION_LENGTH = 25 * 60;
+
+let remainingSeconds = SESSION_LENGTH;
+let timerRunning = false;
+let interval = null;
+
+function displayTimer() {
+  const minutes = Math.floor(remainingSeconds / 60);
+  const seconds = remainingSeconds % 60;
+
+  $("timer").textContent =
+    String(minutes).padStart(2, "0") + ":" +
+    String(seconds).padStart(2, "0");
+}
+
+function updateStudyStats() {
+  $("sessions").textContent = data.sessions;
+  $("studyTime").textContent = data.studyMinutes + " min";
+}
+
+function completeSession() {
+  clearInterval(interval);
+  interval = null;
+  timerRunning = false;
+
+  data.sessions += 1;
+  data.studyMinutes += 25;
+
+  saveData();
+  updateStudyStats();
+
+  $("startTimer").textContent = "Start";
+  $("timerStatus").textContent = "Session completed. Well done.";
+  alert("25-minute study session completed.");
+}
+
+function startOrPauseTimer() {
+  if (timerRunning) {
+    clearInterval(interval);
+    interval = null;
+    timerRunning = false;
+
+    $("startTimer").textContent = "Resume";
+    $("timerStatus").textContent = "Timer paused.";
+
+    return;
+  }
+
+  timerRunning = true;
+
+  $("startTimer").textContent = "Pause";
+  $("timerStatus").textContent = "Focus session in progress.";
+
+  interval = setInterval(function() {
+    remainingSeconds--;
+
+    displayTimer();
+
+    if (remainingSeconds <= 0) {
+      remainingSeconds = 0;
+      displayTimer();
+      completeSession();
+    }
+  }, 1000);
+}
+
+$("startTimer").addEventListener("click", startOrPauseTimer);
+
+$("resetTimer").addEventListener("click", function() {
+  clearInterval(interval);
+  interval = null;
+
+  timerRunning = false;
+  remainingSeconds = SESSION_LENGTH;
+
+  displayTimer();
+
+  $("startTimer").textContent = "Start";
+  $("timerStatus").textContent = "Ready to study?";
+});
+
+/* ---------- INITIAL DISPLAY ---------- */
+
+function initialize() {
+  renderProfile();
+  renderSyllabus();
+  renderScores();
+  displayTimer();
+  updateStudyStats();
+}
+
+initialize();
+
+</script>
+
+</body>
+</html>
